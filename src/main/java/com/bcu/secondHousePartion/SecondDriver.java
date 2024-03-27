@@ -21,7 +21,7 @@ public class SecondDriver extends Configured implements Tool {
     public int run(String[] strings) throws IOException, InterruptedException, ClassNotFoundException {
         Job job = Job.getInstance(super.getConf(), SecondDriver.class.getSimpleName());
         job.setInputFormatClass(TextInputFormat.class);
-        TextInputFormat.setInputPaths(job, new Path("/datas/xxx.csv"));
+        TextInputFormat.setInputPaths(job, new Path("hdfs://192.168.100.101:9000/datas/xxx.csv"));
         //mapper
         job.setMapperClass(SecondMapper.class);
         job.setMapOutputKeyClass(Text.class);
@@ -37,7 +37,7 @@ public class SecondDriver extends Configured implements Tool {
 
         //output
         job.setOutputFormatClass(TextOutputFormat.class);
-        TextOutputFormat.setOutputPath(job, new Path("/datas/shP"));
+        TextOutputFormat.setOutputPath(job, new Path("hdfs://192.168.100.101:9000/datas/shP"));
         return job.waitForCompletion(true) ? 0 : -1;
     }
 
