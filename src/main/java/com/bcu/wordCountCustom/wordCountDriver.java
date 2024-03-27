@@ -16,9 +16,7 @@ import org.apache.hadoop.util.ToolRunner;
 
 public class wordCountDriver extends Configured implements Tool {
     public static void main(String[] args) throws Exception {
-        Configuration configuration = new Configuration();
-        JobMain jobMain = new JobMain();
-        int status = ToolRunner.run(configuration, jobMain, args);
+        int status = ToolRunner.run(new Configuration(), new wordCountDriver(), args);
         System.exit(status);
     }
 
@@ -37,13 +35,13 @@ public class wordCountDriver extends Configured implements Tool {
         //第七部：设置reducer类
         job.setReducerClass(WordCountReducer.class);
         //然后输出key,和mapper数据类型
-        job.setOutputKeyClass(Text.class);
+        job.setOutputKeyClass(WordCountBean.class);
         job.setOutputValueClass(LongWritable.class);
 
         //第八步：设置输出数据所用类
         job.setOutputFormatClass(TextOutputFormat.class);
         TextOutputFormat.setOutputPath(job, new Path("hdfs://192.168.100.101:9000/wordcount_out"));
         boolean b = job.waitForCompletion(true);
-        return b ? 0 : 1;
+        return b ? 0 : -1;
     }
 }

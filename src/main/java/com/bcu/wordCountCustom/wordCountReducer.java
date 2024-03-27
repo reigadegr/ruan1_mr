@@ -6,13 +6,19 @@ import org.apache.hadoop.mapreduce.Reducer;
 
 import java.io.IOException;
 
-public class wordCountReducer extends Reducer<Text, LongWritable, Text, LongWritable> {
-    protected void reduce(Text key, Iterable<LongWritable> values, Reducer<Text, LongWritable, Text, LongWritable>.Context context) throws IOException, InterruptedException {
+public class wordCountReducer extends Reducer<Text, LongWritable, WordCountBean, LongWritable> {
+    WordCountBean outputKey=new WordCountBean();
+    LongWritable outputVaue=new LongWritable();
+
+    protected void reduce(WordCountBean key, Iterable<LongWritable> values, Reducer<Text, LongWritable, WordCountBean, LongWritable>.Context context) throws IOException, InterruptedException {
 //        super.reduce(key, values, context);
+        String word=key.toString();
+        outputKey.setAll(word,word.length());
         int count = 0;
         for (LongWritable value : values) {
             count += value.get();
         }
-        context.write(key, new LongWritable(count));
+        outputVaue.set(count);
+        context.write(outputKey,outputVaue);
     }
 }
