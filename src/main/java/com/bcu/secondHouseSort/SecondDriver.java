@@ -1,4 +1,4 @@
-package com.bcu.secondHousePartion;
+package com.bcu.secondHouseSort;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
@@ -11,7 +11,6 @@ import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
-
 
 import java.io.IOException;
 
@@ -34,7 +33,6 @@ public class SecondDriver extends Configured implements Tool {
         job.setMapOutputKeyClass(Text.class);
         job.setMapOutputValueClass(LongWritable.class);
 
-
         //shuffle
         job.setPartitionerClass(secondPartitioner.class);
         //reduce
@@ -43,11 +41,12 @@ public class SecondDriver extends Configured implements Tool {
         job.setOutputValueClass(LongWritable.class);
 
         //output
-        //删除要创建的目录
+        //优先删除要创建的目录，防止因为存在导致异常
         FileSystem hdfs = getHdfs();
-        hdfs.delete(new Path("hdfs://192.168.100.101:9000/datas/shP"), true);
+        Path shP = new Path("hdfs://192.168.100.101:9000/datas/shP");
+        hdfs.delete(shP, true);
         job.setOutputFormatClass(TextOutputFormat.class);
-        TextOutputFormat.setOutputPath(job, new Path("hdfs://192.168.100.101:9000/datas/shP"));
+        TextOutputFormat.setOutputPath(job, shP);
         return job.waitForCompletion(true) ? 0 : -1;
     }
 
