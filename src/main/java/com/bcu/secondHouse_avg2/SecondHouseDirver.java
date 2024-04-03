@@ -1,4 +1,4 @@
-package com.bcu.secondHouse_avg1;
+package com.bcu.secondHouse_avg2;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
@@ -12,36 +12,23 @@ import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 
 /**
  * 二手房统计驱动类
  */
 public class SecondHouseDirver extends Configured implements Tool {
 
-
     public static void main(String[] args) throws Exception {
         int status = ToolRunner.run(new Configuration(), new SecondHouseDirver(), args);
         System.exit(status);
     }
 
-    public FileSystem getHdfs() throws IOException, URISyntaxException {
-        /*
-          构建一个当前程序的配置对象，用于管理所有的配置：*-default。xml
-          这个对象会加载所有的*-default。xml中的默认配置
-          然后加载所有的*-size。xml中的自定义的配置，用这些自定义的配置替换默认配置
-          如何让当前地址知道HDFS的地址？也就是fs.defaultFS
-          方法1：创建一个resource资源目录，将core-site.xml复制粘贴到resources中
-         */
+    public FileSystem getHdfs() throws IOException {
         Configuration conf = new Configuration();
         conf.set("fs.defaultFs", "hdfs://node-1:9000");
-
         FileSystem hdfs = FileSystem.get(conf);
-
         System.out.println(hdfs);
-
         return hdfs;
-
     }
 
     @Override
