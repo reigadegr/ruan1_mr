@@ -16,7 +16,6 @@ public class SecondHouseMapper extends Mapper<LongWritable, Text, Text, SecondHo
     Text outputKey = new Text();
     //准备输出的value
     SecondHouseBean outputValue = new SecondHouseBean();
-
     @Override
     protected void map(LongWritable key, Text value, Mapper<LongWritable, Text, Text, SecondHouseBean>.Context context) throws IOException, InterruptedException {
         //将一行数据转化成字符串
@@ -32,6 +31,6 @@ public class SecondHouseMapper extends Mapper<LongWritable, Text, Text, SecondHo
         //封装输出的value
         outputValue.setAll(1, totalPrice);
         //使用上下文对象将key和value写出
-        context.write(outputKey, outputValue);
+        context.write(outputKey,outputValue);
     }
 }

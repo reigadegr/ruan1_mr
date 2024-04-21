@@ -1,8 +1,5 @@
 package com.bcu.secondHouse_avg1;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.apache.hadoop.io.Writable;
 
 import java.io.DataInput;
@@ -12,12 +9,12 @@ import java.io.IOException;
 /**
  * 自定义数据类型
  */
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class SecondHouseBean implements Writable {
     private Integer count;//总数
     private Double totalPrice;//总价
+
+    public SecondHouseBean() {
+    }
 
     public void setAll(Integer count, double totalPrice) {
         this.setCount(count);

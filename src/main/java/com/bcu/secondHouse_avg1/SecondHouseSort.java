@@ -10,7 +10,7 @@ import org.apache.hadoop.io.WritableComparator;
 public class SecondHouseSort extends WritableComparator {
 
     //注册： 实现将Text类型进行构建实力，进行比较
-    public SecondHouseSort() {
+    public SecondHouseSort(){
         super(Text.class, true);
     }
 

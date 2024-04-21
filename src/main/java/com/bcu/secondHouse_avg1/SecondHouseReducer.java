@@ -22,7 +22,7 @@ public class SecondHouseReducer extends Reducer<Text, SecondHouseBean, Text, Sec
         //创建变量addressTotalPrice,用于计算总价格
         int addressTotalPrice = 0;
         //遍历迭代器
-        for (SecondHouseBean value : values) {
+        for(SecondHouseBean value: values){
             //计算总数量
             count += value.getCount();
             //计算总金额
