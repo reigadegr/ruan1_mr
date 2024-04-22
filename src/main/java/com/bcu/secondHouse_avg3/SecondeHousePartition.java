@@ -12,10 +12,10 @@ public class SecondeHousePartition extends Partitioner<Text, SecondHouseBean> {
         //获取地区字符串
         String address = text.toString();
         //判断地区是否是浦东
-        if ("浦东".equals(address)) {
+        if ("浦东".indexOf(address) != -1) {
             //如果是分区0
             return 0;
-        }else{
+        } else {
             //如果不是分区1
             return 1;
         }
